@@ -5,16 +5,15 @@ import * as yup from 'yup'
 import { sub } from "date-fns/fp"
 import { parse } from "date-fns"
 
+interface PersonalInformationProps {
+    formData: { fullname: string; email: string, dateofbirth: string  };
+    onNext: () => void;
+}
+
 interface PersonalInformation {
     fullname: string;
     email: string;
     dateofbirth: string;
-}
-
-const initialValues = {
-    fullname: '',
-    email: '',
-    dateofbirth: ''
 }
 
 const validationSchema = yup.object({
@@ -27,19 +26,28 @@ const validationSchema = yup.object({
     }).required('Date of birth required').max(sub({years:18}, new Date()), "Age must be over 18 years old")
 })
 
-const FormPersonalInformation = () => {
+const FormPersonalInformation: React.FC<PersonalInformationProps> = ({ formData, onNext }) => {
 
     const handleSubmit = (values: PersonalInformation) => {
         console.log(values)
     }
 
     const formMik = useFormik({
-        initialValues: initialValues,
+        initialValues: {
+            fullname: formData.fullname,
+            email: formData.email,
+            dateofbirth: formData.dateofbirth
+        },
         onSubmit: handleSubmit,
         validationSchema: validationSchema
     })
 
-
+    const handleNext = () => {
+        formMik.handleSubmit();
+        if (formMik.isValid) {
+            onNext();
+        }
+    };
     return (
         <Card title={'Personal Information'}>
             <form onSubmit={formMik.handleSubmit}>
@@ -78,7 +86,7 @@ const FormPersonalInformation = () => {
                     )}
                 </div>
                 <br></br>
-                <Button type={'primary'} >Next </Button>
+                <Button type={'primary'} onClick={handleNext} >Next </Button>
             </form>
         </Card>
     )

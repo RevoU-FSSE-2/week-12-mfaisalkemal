@@ -1,11 +1,11 @@
 import './App.css'
-import { FormPersonalInformation, FormAddressInformation, FormAccountInformation } from './containers';
+import { RegistrationPage } from './containers';
 
 const App = () => {
   
   return (
     <>
-      <FormPersonalInformation />
+      <RegistrationPage />
     </>
   )
 }

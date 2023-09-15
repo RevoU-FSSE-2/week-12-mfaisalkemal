@@ -3,6 +3,12 @@ import { Input, Button } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 
+interface AddressInformationProps {
+    formData: { streetaddress: string, city: string, state: string, zipcode: string };
+    onNext: () => void;
+    onPrev: () => void;
+}
+
 interface AddressInformation {
     streetaddress: string;
     city: string;
@@ -10,32 +16,36 @@ interface AddressInformation {
     zipcode: string;
 }
 
-const initialValues = {
-    streetaddress: '',
-    city: '',
-    state: '',
-    zipcode: ''
-}
-
 const validationSchema = yup.object({
-    streetaddress: yup.string().required('Street address required'),
+    streetaddress: yup.string().required(),
     city: yup.string().required('City required'),
     state: yup.string().required('State required'),
     zipcode: yup.string().length(5).matches(/^[0-9]{5}/).required('Zip code required') 
 })
 
-const FormAddressInformation = () => {
+const FormAddressInformation: React.FC<AddressInformationProps> = ({ formData, onNext, onPrev} ) => {
 
     const handleSubmit = (values: AddressInformation) => {
         console.log(values)
     }
 
     const formMik = useFormik({
-        initialValues: initialValues,
+        initialValues: {
+            streetaddress: formData.streetaddress,
+            city: formData.city,
+            state: formData.state,
+            zipcode: formData.zipcode
+        },
         onSubmit: handleSubmit,
         validationSchema: validationSchema
     })
 
+    const handleNext = () => {
+        formMik.handleSubmit();
+        if (formMik.isValid) {
+            onNext();
+        }
+    };
 
     return (
         <Card title={'Address'}>
@@ -86,10 +96,9 @@ const FormAddressInformation = () => {
                     )}
                 </div>
                 <br></br>
-                <Button type={'primary'} >Back </Button>
+                <Button type={'primary'} onClick={onPrev} >Back </Button>
                 <span>&emsp;</span>
-                <Button type={'primary'} >Next </Button>
-                {/* <Button type={'primary'} htmlType={"submit"}>Submit</Button> */}
+                <Button type={'primary'} onClick={handleNext} >Next </Button>
             </form>
         </Card>
     )

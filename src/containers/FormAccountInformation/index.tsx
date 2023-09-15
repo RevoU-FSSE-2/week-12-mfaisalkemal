@@ -3,6 +3,11 @@ import { Input, Button } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 
+interface AccountInformationProps {
+    formData: { username: string, password: string };
+    onPrev: () => void;
+}
+
 interface AccountInformation {
     username: string;
     password: string;
@@ -21,14 +26,17 @@ const validationSchema = yup.object({
     )
 })
 
-const FormAccountInformation = () => {
+const FormAccountInformation: React.FC<AccountInformationProps> = ({ formData, onPrev }) => {
 
     const handleSubmit = (values: AccountInformation) => {
         console.log(values)
     }
 
     const formMik = useFormik({
-        initialValues: initialValues,
+        initialValues: {
+            username: formData.username,
+            password: formData.password
+        },
         onSubmit: handleSubmit,
         validationSchema: validationSchema
     })
@@ -60,10 +68,7 @@ const FormAccountInformation = () => {
                     )}
                 </div>
                 <br></br>
-                <Button type={'primary'} >Back </Button>
-                <span>&emsp;</span>
-                <Button type={'primary'} >Finish </Button>
-                {/* <Button type={'primary'} htmlType={"submit"}>Submit</Button> */}
+                <Button type={'primary'} onClick={onPrev}>Back </Button>
             </form>
         </Card>
     )
