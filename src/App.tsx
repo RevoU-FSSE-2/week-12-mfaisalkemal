@@ -1,11 +1,13 @@
-import React from 'react';
-import { Button } from 'antd';
-import './App.css';
+import './App.css'
+import { FormPersonalInformation, FormAddressInformation, FormAccountInformation } from './containers';
 
-const App: React.FC = () => (
-  <div className="App">
-    <Button type="primary">Button</Button>
-  </div>
-);
+const App = () => {
+  
+  return (
+    <>
+      <FormAccountInformation />
+    </>
+  )
+}
 
-export default App;
+export default App
