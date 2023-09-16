@@ -7,7 +7,7 @@ Other key features:
 - CSS design by Ant Design
 
 ## Deployed link: 
-https://6504fa63a20b4e47f98eefb7--roaring-phoenix-96876b.netlify.app/
+[Link](https://6504fa63a20b4e47f98eefb7--roaring-phoenix-96876b.netlify.app/)
 
 ## How to Run APP
 ```
