@@ -9,7 +9,7 @@ Other key features:
 ## Deployed link: 
 [Link](https://6504fa63a20b4e47f98eefb7--roaring-phoenix-96876b.netlify.app/)
 
-## How to Run APP
+## How to Run
 ```
 git clone
 npm install
